@@ -35,6 +35,31 @@ export function ConnectButton() {
     }
   }
 
+  const logout = async () => {
+    setStatus(1);
+
+    let res = await orbis.logout()
+
+    switch (res.status) {
+      case 200:
+        setStatus(0)
+
+        console.log(res.result)
+        setUser("")
+
+        break
+
+      default:
+        console.log("Couldn't logout", res.error.message);
+        setStatus(3);
+
+        /** Wait for 2 seconds before resetting the button */
+        await sleep(2000);
+        setStatus(2);
+
+    }
+  }
+
   // const getUserDetails = async (did) => {
   //   let { data, error, status } = await orbis.getProfile(did);
 
@@ -61,27 +86,35 @@ export function ConnectButton() {
     case 1:
       return <button style={connectingButton}>Loading...</button>;
     case 2:
-      return <button style={connectingButton}>{user.profile?.username ?
-        <div style={profileFlex}>
-          {
-            user.profile.pfp ?
-              <Image src={user.profile.pfp} width='21px' height='20px' style={{ borderRadius: '50%' }} alt="profile picture" />
-              :
-              <Image src='/defaultPFP.jpeg' width='21px' height='20px' style={{ borderRadius: '50%' }} alt="profile picture" />
-          }
-          <div>{user.profile.username}</div>
-        </div>
+      console.log("user", user)
+      return (
+        <div>
+          <button style={connectingButton}>{user.profile?.username ?
+            <div style={profileFlex}>
+              {
+                user.profile.pfp ?
+                  <Image src={user.profile.pfp} width='21px' height='20px' style={{ borderRadius: '50%' }} alt="profile picture" />
+                  :
+                  <Image src='/defaultPFP.jpeg' width='21px' height='20px' style={{ borderRadius: '50%' }} alt="profile picture" />
+              }
+              <div>{user.profile.username}</div>
+              
+            </div>
 
-        :
-        <div style={profileFlex}>
-          <Image src='/defaultPFP.jpeg' width='21px' height='20px' style={{ borderRadius: '50%' }} alt="profile picture" />
-          <div>{getTruncatedDID(user.did, 5)}</div>
-        </div>}
-      </button>;
+            :
+            <div style={profileFlex}>
+              <Image src='/defaultPFP.jpeg' width='21px' height='20px' style={{ borderRadius: '50%' }} alt="profile picture" />
+              <div>{getTruncatedDID(user.did, 5)}</div>
+            </div>}
+          </button>
+          <button style={connectButton} onClick={() => logout()}>Logout</button>
+        </div>
+      )
     case 3:
       return <button style={connectingButton}>Error</button>
 
   }
+
 }
 
 const connectButton = {

@@ -8,6 +8,8 @@ import styles from '../styles/Home.module.css'
 
 export default function Home() {
   const { user, setUser, orbis } = useContext(GlobalContext);
+  
+  //console.log(user)
 
   return (
     <div className={styles.container}>
@@ -22,10 +24,10 @@ export default function Home() {
       <hr />
       <main className={styles.main}>
         {user ?
-          <div style={{ display: 'flex', gap: '20px' }}>
+          (<div style={{ display: 'flex', gap: '20px' }}>
             <ConversationButtons />
             <ConversationBox />
-          </div>
+          </div>)
           :
           <div>Please connect your wallet!</div>
         }

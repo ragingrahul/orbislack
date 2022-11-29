@@ -43,7 +43,7 @@ export function ConversationMessages() {
       }
     } catch (error) {
       setCurrentDecryptedMessages([]);
-      console.log("Could not decrypt messages:", error);
+      //console.log("Could not decrypt messages:", error);
     }
   }
   return (

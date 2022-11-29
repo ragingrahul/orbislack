@@ -13,13 +13,14 @@ let orbis = new Orbis();
 
 function MyApp({ Component, pageProps }) {
   const [user, setUser] = useState(null);
-  const [currentConversationDetails, setCurrentConversationDetails] = useState();
+  const [currentConversationDetails, setCurrentConversationDetails] = useState("");
   const [status, setStatus] = useState(0);
 
   useEffect(() => {
     const checkConnection = async () => {
-      console.log('entered this loop');
+      //console.log("app",user);
       if (user == null) {
+        
         let res = await orbis.isConnected();
         console.log('Connection status', res.status);
         if (res.status == 200) {

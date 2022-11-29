@@ -31,7 +31,7 @@ export function ConversationButtons() {
         setConversationsList(null);
         setCurrentConversationDetails(null);
         // setCurrentConversationID("");
-        console.log("Could not load conversations:", error);
+        //console.log("Could not load conversations:", error);
       }
     }
   }

@@ -19,6 +19,7 @@ export function CreateConversationModal(props) {
         description: conversationDescription,
         context: conversationContext,
       });
+      console.log(res.status)
       if (res.status == 200) {
         console.log("Result from new conversation:", res);
         setConversationName("");

@@ -7,7 +7,8 @@ export function SendMessages() {
 
   const [newMessage, setNewMessage] = useState("");
 
-  const sendNewMessage = async () => {
+  const sendNewMessage = async (e) => {
+    e.preventDefault()
     try {
       let res = await orbis.sendMessage({
         conversation_id: currentConversationDetails.stream_id,
@@ -31,7 +32,7 @@ export function SendMessages() {
         style={newMessageInput}
         value={newMessage}
         onChange={e => setNewMessage(e.target.value)} />
-      <button type='submit' onClick={() => sendNewMessage()} style={newMessageSubmit} >
+      <button type='submit' onClick={sendNewMessage} style={newMessageSubmit} >
         Send
       </button>
     </form>
